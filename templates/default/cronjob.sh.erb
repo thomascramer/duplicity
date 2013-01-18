@@ -1,0 +1,44 @@
+#!/bin/bash
+
+<% Array(@exec_pre).each do |cmd| %>
+<%= cmd %>
+<% end -%>
+
+# the duplicity password
+export PASSPHRASE=<%= @passphrase %>
+
+mkdir -p <%= @archive_dir %> &> /dev/null
+mkdir -p <%= @temp_dir %> &> /dev/null
+
+# remove old backups
+nice -n <%= @nice %> \
+  duplicity remove-all-but-n-full <%= @keep_full %> \
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> &> /dev/null
+
+# clean up
+nice -n <%= @nice %> duplicity cleanup \
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> &> /dev/null
+
+<% Array(@exec_before).each do |cmd| %>
+<%= cmd %>
+<% end -%>
+
+# backup selected directories
+nice -n <%= @nice %> duplicity \
+  --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> \
+  --full-if-older-than <%= @full_backup_if_older_than %> \
+  --exclude-device-files / \
+<% Array(@exclude).each do |dir| %>
+  --exclude <%= dir %> \
+<% end -%>
+<% Array(@include).each do |dir| %>
+  --include <%= dir %> \
+<% end -%>
+  --exclude '**' \
+  <%= @backend %> &> /dev/null
+
+unset PASSPHRASE
+
+<% Array(@exec_after).each do |cmd| %>
+<%= cmd %>
+<% end -%>
