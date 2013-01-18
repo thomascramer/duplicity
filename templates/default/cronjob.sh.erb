@@ -7,9 +7,6 @@
 # the duplicity password
 export PASSPHRASE=<%= @passphrase %>
 
-mkdir -p <%= @archive_dir %> &> /dev/null
-mkdir -p <%= @temp_dir %> &> /dev/null
-
 # remove old backups
 nice -n <%= @nice %> \
   duplicity remove-all-but-n-full <%= @keep_full %> \

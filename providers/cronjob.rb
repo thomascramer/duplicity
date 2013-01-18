@@ -19,9 +19,11 @@
 #
 
 action :create do
-
   package 'duplicity'
   package 'ncftp' if new_resource.backend.include?('ftp://')
+
+  directory new_resource.archive_dir
+  directory new_resource.temp_dir
 
   # unless passphrase is given, try getting it from data bag
   if new_resource.passphrase
