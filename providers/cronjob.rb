@@ -46,6 +46,8 @@ action :create do
                 :archive_dir => new_resource.archive_dir,
                 :temp_dir => new_resource.temp_dir,
                 :full_backup_if_older_than => new_resource.full_backup_if_older_than,
+                :nice => new_resource.nice,
+                :keep_full => new_resource.keep_full,
                 :exec_pre => new_resource.exec_pre,
                 :exec_before => new_resource.exec_before,
                 :exec_after => new_resource.exec_after
