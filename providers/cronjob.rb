@@ -68,7 +68,7 @@ action :create do
     # zabbix user needs root access to check backup status (tmpfiles)
     sudoers_manage 'zabbix_duplicity' do
       user    'zabbix'
-      command "ALL=NOPASSWD: #{new_resource.duplicity_path} collection-status"
+      command "ALL=NOPASSWD: #{new_resource.duplicity_path} collection-status *"
     end
   end
 end
