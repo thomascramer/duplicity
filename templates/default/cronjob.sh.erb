@@ -10,11 +10,11 @@ export PASSPHRASE=<%= @passphrase %>
 # remove old backups
 nice -n <%= @nice %> \
   duplicity remove-all-but-n-full <%= @keep_full %> \
-  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> &> /dev/null
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
 
 # clean up
 nice -n <%= @nice %> duplicity cleanup \
-  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> &> /dev/null
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
 
 <% Array(@exec_before).each do |cmd| %>
 <%= cmd %>
@@ -32,7 +32,7 @@ nice -n <%= @nice %> duplicity \
   --include <%= dir %> \
 <% end -%>
   --exclude '**' \
-  <%= @backend %> &> /dev/null
+  <%= @backend %> &> <%= @logfile %>
 
 unset PASSPHRASE
 

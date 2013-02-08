@@ -33,13 +33,18 @@ action :create do
     passphrase = Chef::EncryptedDataBagItem.load(new_resource.data_bag, new_resource.data_bag_item, duplicity_secret)['passphrase']
   end
 
+  directory ::File.dirname(new_resource.logfile) do
+    mode '0750'
+  end
+
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
     mode     '0755'
     source   new_resource.source
     cookbook new_resource.cookbook
 
     if new_resource.variables.empty?
-      variables :backend => new_resource.backend,
+      variables :logfile => new_resource.logfile,
+                :backend => new_resource.backend,
                 :passphrase => passphrase,
                 :include => new_resource.include,
                 :exclude => new_resource.exclude,

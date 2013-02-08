@@ -28,6 +28,7 @@ attribute :source,           :kind_of => String, :default => 'cronjob.sh.erb'
 attribute :variables,        :kind_of => Hash,   :default => {}
 attribute :duplicity_path,   :kind_of => String, :default => '/usr/bin/duplicity'
 attribute :configure_zabbix, :kind_of => [ TrueClass, FalseClass ], :default => false
+attribute :logfile,          :kind_of => String, :default => '/dev/null'
 
 # data bag elements (only needed if :passphrase is nil)
 attribute :data_bag,         :kind_of => String, :default => 'duplicity'
@@ -35,6 +36,7 @@ attribute :data_bag_item,    :kind_of => String, :default => node['hostname']
 attribute :data_bag_secret,  :kind_of => String, :default => '/etc/chef/encrypted_data_bag_secret'
 attribute :data_bag_element, :kind_of => String, :default => 'passphrase'
 
+# duplicity parameters
 attribute :backend,     :kind_of => String, :required => true
 attribute :passphrase,  :kind_of => String, :default => nil
 attribute :include,     :kind_of => Array,  :default => [ '/etc/', '/root/', '/var/log/' ]
