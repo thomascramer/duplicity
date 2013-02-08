@@ -38,7 +38,7 @@ action :create do
   end
 
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
-    mode     '0755'
+    mode     '0750'
     source   new_resource.source
     cookbook new_resource.cookbook
 
