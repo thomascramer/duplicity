@@ -71,9 +71,10 @@ action :create do
     end
 
     # zabbix user needs root access to check backup status (tmpfiles)
-    sudoers_manage 'zabbix_duplicity' do
-      user    'zabbix'
-      command "ALL=NOPASSWD: #{new_resource.duplicity_path} collection-status *"
+    sudo 'zabbix_duplicity' do
+      user     'zabbix'
+      nopasswd true
+      commands [ "#{new_resource.duplicity_path} collection-status *" ]
     end
   end
 end
@@ -89,8 +90,8 @@ action :delete do
       action :delete
     end
 
-    sudoers_manage 'zabbix_duplicity' do
-      action :delete
+    sudo 'zabbix_duplicity' do
+      action  :remove
       only_if 'ls /etc/zabbix/zabbix_agentd.conf.d/duplicity_*.conf &> /dev/null'
     end
   end
