@@ -60,8 +60,8 @@ action :create do
   end
 
   if new_resource.configure_zabbix
-    zabbix_agent_userparam "duplicity-#{new_resource.name}" do
-      identifier "duplicity.#{new_resource.name}.last_backup"
+    zabbix_agent_userparam 'duplicity' do
+      identifier "duplicity.last_backup"
       command    %\expr $(date "+%s") - $(date --date "$(\ +
                  %\sudo duplicity collection-status --archive-dir #{new_resource.archive_dir} --tempdir #{new_resource.temp_dir} #{new_resource.backend} |\ +
                  %#tail -n3 |head -n1 |sed -r 's/^\\s+\\S+\\s+(\\w+\\s+\\w+\\s+\\w+\\s+\\S+\\s+\\w+).*$/\\1/'# +
