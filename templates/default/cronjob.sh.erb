@@ -4,6 +4,10 @@
 <%= cmd %>
 <% end -%>
 
+# create archive/temp directories
+mkdir -p <%= @temp_dir %> >> <%= @logfile %> 2>&1
+mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
+
 # the duplicity password
 export PASSPHRASE=<%= @passphrase %>
 
