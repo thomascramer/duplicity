@@ -32,7 +32,8 @@ Installs a duplicity cronjob
       archive_dir    '/tmp/duplicity-archive'           # duplicity archive directory
       temp_dir       '/tmp/duplicity-tmp'               # duplicity temp directory
       keep_full      5                                  # keep 5 full backups
-      nice           10                                 # be nice
+      nice           10                                 # be nice (cpu)
+      ionice         3                                  # ionice class (3 => idle)
       full_backup_if_older_than '7D'                    # take a full backup after this interval
 
       # command(s) to run at the very beginning of the cronjob (default: empty)

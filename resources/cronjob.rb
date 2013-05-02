@@ -37,14 +37,15 @@ attribute :data_bag_secret,  :kind_of => String, :default => '/etc/chef/encrypte
 attribute :data_bag_element, :kind_of => String, :default => 'passphrase'
 
 # duplicity parameters
-attribute :backend,     :kind_of => String, :required => true
-attribute :passphrase,  :kind_of => String, :default => nil
-attribute :include,     :kind_of => Array,  :default => [ '/etc/', '/root/', '/var/log/' ]
-attribute :exclude,     :kind_of => Array,  :default => []
-attribute :archive_dir, :kind_of => String, :default => '/tmp/duplicity-archive'
-attribute :temp_dir,    :kind_of => String, :default => '/tmp/duplicity-tmp'
+attribute :backend,     :kind_of => String,  :required => true
+attribute :passphrase,  :kind_of => String,  :default => nil
+attribute :include,     :kind_of => Array,   :default => [ '/etc/', '/root/', '/var/log/' ]
+attribute :exclude,     :kind_of => Array,   :default => []
+attribute :archive_dir, :kind_of => String,  :default => '/tmp/duplicity-archive'
+attribute :temp_dir,    :kind_of => String,  :default => '/tmp/duplicity-tmp'
 attribute :keep_full,   :kind_of => Integer, :default => 5
 attribute :nice,        :kind_of => Integer, :default => 10
+attribute :ionice,      :kind_of => Integer, :default => 3
 attribute :full_backup_if_older_than, :kind_of => String, :default => '7D'
 
 # shell scripts that will be appended at the beginning/end of the cronjob
