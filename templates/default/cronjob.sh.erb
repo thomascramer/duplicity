@@ -1,12 +1,12 @@
 #!/bin/bash
 
-<% Array(@exec_pre).each do |cmd| %>
-<%= cmd %>
-<% end -%>
-
 # create archive/temp directories
 mkdir -p <%= @temp_dir %> >> <%= @logfile %> 2>&1
 mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
+
+<% Array(@exec_pre).each do |cmd| %>
+<%= cmd %>
+<% end -%>
 
 # the duplicity password
 export PASSPHRASE=<%= @passphrase %>
