@@ -25,7 +25,7 @@ nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
 <% end -%>
 
 # backup selected directories
-nice -n <%= @nice %> ionice -c <%= @ionice %> time duplicity \
+time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity \
   --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> \
   --full-if-older-than <%= @full_backup_if_older_than %> \
   --exclude-device-files / \
