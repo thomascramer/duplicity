@@ -48,6 +48,11 @@ attribute :nice,        kind_of: Integer, default: 10
 attribute :ionice,      kind_of: Integer, default: 3
 attribute :full_backup_if_older_than, kind_of: String, default: '7D'
 
+# Swift backend parameters
+attribute :swift_username, kind_of: String, default: nil
+attribute :swift_password, kind_of: String, default: nil
+attribute :swift_authurl,  kind_of: String, default: nil
+
 # Shell scripts that will be appended at the beginning/end of the cronjob
 attribute :exec_pre,    kind_of: [ String, Array ], default: []
 attribute :exec_before, kind_of: [ String, Array ], default: []

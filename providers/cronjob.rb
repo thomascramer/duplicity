@@ -53,6 +53,9 @@ action :create do
                 nice: new_resource.nice,
                 ionice: new_resource.ionice,
                 keep_full: new_resource.keep_full,
+                swift_username: new_resource.swift_username,
+                swift_password: new_resource.swift_password,
+                swift_authurl: new_resource.swift_authurl,
                 exec_pre: new_resource.exec_pre,
                 exec_before: new_resource.exec_before,
                 exec_after: new_resource.exec_after

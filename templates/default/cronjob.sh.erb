@@ -11,6 +11,11 @@ mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
 # The duplicity password
 export PASSPHRASE=<%= @passphrase %>
 
+# Settings for Swift backend
+export SWIFT_USERNAME="<%= @swift_username %>"
+export SWIFT_PASSWORD="<%= @swift_password %>"
+export SWIFT_AUTHURL="<%= @swift_authurl %>"
+
 # Remove old backups
 nice -n <%= @nice %> ionice -c <%= @ionice %> \
   duplicity remove-all-but-n-full <%= @keep_full %> \
