@@ -22,7 +22,7 @@ action :create do
   package 'duplicity'
   package 'ncftp' if new_resource.backend.include?('ftp://')
 
-  # unless passphrase is given, try getting it from data bag
+  # Unless passphrase is given, try getting it from data bag
   if new_resource.passphrase
     passphrase = new_resource.passphrase
   else
@@ -68,7 +68,7 @@ action :create do
                  %\)" "+%s")\
     end
 
-    # zabbix user needs root access to check backup status (tmpfiles)
+    # Zabbix user needs root access to check backup status (tmpfiles)
     sudo 'zabbix_duplicity' do
       user     'zabbix'
       nopasswd true

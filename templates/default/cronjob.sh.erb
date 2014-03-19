@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# create archive/temp directories
+# Create archive/temp directories
 mkdir -p <%= @temp_dir %> >> <%= @logfile %> 2>&1
 mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
 
@@ -8,15 +8,15 @@ mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
 <%= cmd %>
 <% end -%>
 
-# the duplicity password
+# The duplicity password
 export PASSPHRASE=<%= @passphrase %>
 
-# remove old backups
+# Remove old backups
 nice -n <%= @nice %> ionice -c <%= @ionice %> \
   duplicity remove-all-but-n-full <%= @keep_full %> \
   --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
 
-# clean up
+# Clean up
 nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
   --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
 
@@ -24,7 +24,7 @@ nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
 <%= cmd %>
 <% end -%>
 
-# backup selected directories
+# Backup selected directories
 time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity \
   --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> \
   --full-if-older-than <%= @full_backup_if_older_than %> \

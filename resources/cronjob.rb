@@ -30,13 +30,13 @@ attribute :duplicity_path,   kind_of: String, default: '/usr/bin/duplicity'
 attribute :configure_zabbix, kind_of: [ TrueClass, FalseClass ], default: false
 attribute :logfile,          kind_of: String, default: '/dev/null'
 
-# data bag elements (only needed if :passphrase is nil)
+# Data bag elements (only needed if :passphrase is nil)
 attribute :data_bag,         kind_of: String, default: 'duplicity'
 attribute :data_bag_item,    kind_of: String, default: node['hostname']
 attribute :data_bag_secret,  kind_of: String, default: '/etc/chef/encrypted_data_bag_secret'
 attribute :data_bag_element, kind_of: String, default: 'passphrase'
 
-# duplicity parameters
+# Duplicity parameters
 attribute :backend,     kind_of: String,  required: true
 attribute :passphrase,  kind_of: String,  default: nil
 attribute :include,     kind_of: Array,   default: [ '/etc/', '/root/', '/var/log/' ]
@@ -48,7 +48,7 @@ attribute :nice,        kind_of: Integer, default: 10
 attribute :ionice,      kind_of: Integer, default: 3
 attribute :full_backup_if_older_than, kind_of: String, default: '7D'
 
-# shell scripts that will be appended at the beginning/end of the cronjob
+# Shell scripts that will be appended at the beginning/end of the cronjob
 attribute :exec_pre,    kind_of: [ String, Array ], default: []
 attribute :exec_before, kind_of: [ String, Array ], default: []
 attribute :exec_after,  kind_of: [ String, Array ], default: []
