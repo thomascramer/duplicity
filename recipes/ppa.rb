@@ -26,3 +26,14 @@ apt_repository 'duplicity-ppa' do
   keyserver 'keyserver.ubuntu.com'
   key '7A86F4A2'
 end
+
+# The package python-swiftclient is not available on Ubuntu < 12.10.
+# It's available in OpenStacks Folsom stable PPA, though
+apt_repository 'openstack-ppa' do
+  uri 'http://ppa.launchpad.net/openstack-ubuntu-testing/folsom-stable-testing/ubuntu'
+  distribution node['lsb']['codename']
+  components ['main']
+  keyserver 'keyserver.ubuntu.com'
+  key '3B6F61A6'
+  only_if { node['platform'] == 'ubuntu' && node['platform_version'].to_f < 12.10 }
+end
