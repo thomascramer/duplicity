@@ -19,8 +19,10 @@
 #
 
 action :create do
+  # Install duplicity, and backend-specific packages
   package 'duplicity'
   package 'ncftp' if new_resource.backend.include?('ftp://')
+  package 'python-swiftclient' if new_resource.backend.include?('swift://')
 
   # Unless passphrase is given, try getting it from data bag
   if new_resource.passphrase
