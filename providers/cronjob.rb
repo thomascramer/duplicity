@@ -19,12 +19,10 @@
 #
 
 action :create do
-  # Install duplicity, and backend-specific packages
   package 'duplicity'
   package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
 
-  # Unless passphrase is given, try getting it from data bag
+  # unless passphrase is given, try getting it from data bag
   if new_resource.passphrase
     passphrase = new_resource.passphrase
   else
@@ -42,43 +40,30 @@ action :create do
     cookbook new_resource.cookbook
 
     if new_resource.variables.empty?
-      variables logfile: new_resource.logfile,
-                backend: new_resource.backend,
-                passphrase: passphrase,
-                include: new_resource.include,
-                exclude: new_resource.exclude,
-                archive_dir: new_resource.archive_dir,
-                temp_dir: new_resource.temp_dir,
-                full_backup_if_older_than: new_resource.full_backup_if_older_than,
-                nice: new_resource.nice,
-                ionice: new_resource.ionice,
-                keep_full: new_resource.keep_full,
-                swift_username: new_resource.swift_username,
-                swift_password: new_resource.swift_password,
-                swift_authurl: new_resource.swift_authurl,
-                exec_pre: new_resource.exec_pre,
-                exec_before: new_resource.exec_before,
-                exec_after: new_resource.exec_after
+      variables :logfile => new_resource.logfile,
+                :backend => new_resource.backend,
+                :passphrase => passphrase,
+                :include => new_resource.include,
+                :exclude => new_resource.exclude,
+                :archive_dir => new_resource.archive_dir,
+                :temp_dir => new_resource.temp_dir,
+                :full_backup_if_older_than => new_resource.full_backup_if_older_than,
+                :nice => new_resource.nice,
+                :ionice => new_resource.ionice,
+                :keep_full => new_resource.keep_full,
+                :exec_pre => new_resource.exec_pre,
+                :exec_before => new_resource.exec_before,
+                :exec_after => new_resource.exec_after
     else
       variables new_resource.variables
     end
   end
+
 end
 
 
 action :delete do
   file "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
     action :delete
-  end
-
-  if new_resource.configure_zabbix
-    zabbix_agent_userparam "duplicity-#{new_resource.name}" do
-      action :delete
-    end
-
-    sudo 'zabbix_duplicity' do
-      action  :remove
-      only_if 'ls /etc/zabbix/zabbix_agentd.conf.d/duplicity_*.conf &> /dev/null'
-    end
   end
 end
