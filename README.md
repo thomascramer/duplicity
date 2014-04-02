@@ -18,7 +18,6 @@ Installs a duplicity cronjob
       # attributes for the default cronjob template
       interval         'daily'              # cron interval (hourly, daily, monthly)
       duplicity_path   '/usr/bin/duplicity' # path to duplicity
-      configure_zabbix false                # automatically configure zabbix user paremeters
       logfile          '/dev/null'          # log cronjob output to this file
 
 
