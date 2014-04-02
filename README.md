@@ -1,6 +1,6 @@
 # Description
 
-Cookbook for installing duplicity backup cronjobs
+Cookbook for installing duplicity backup cronjobs.... (removes zabbix dependencies)
 
 # Providers
 
